@@ -1,0 +1,74 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Fungsi Pembantu ──────────────────────────────────────────
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // isTeacher(): cek role dari Firestore.
+    // Menggunakan get() internal — aman dari circular dependency
+    // karena akses internal Firestore tidak melalui security rules.
+    function isTeacher() {
+      return isAuthenticated() &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'teacher';
+    }
+
+    // ── Koleksi: users ───────────────────────────────────────────
+    match /users/{userId} {
+      // Pemilik SELALU bisa baca dokumennya sendiri (tanpa syarat role).
+      // Ini penting agar loginTeacher() bisa fetch profil setelah signIn
+      // tanpa circular dependency saat isTeacher() belum terbukti.
+      allow read: if isOwner(userId) || isTeacher();
+
+      // Siswa baru bisa buat akun dengan role 'student'
+      allow create: if isOwner(userId) && request.resource.data.role == 'student';
+
+      // Pemilik boleh update profilnya sendiri (nama, foto, dll)
+      // TAPI tidak boleh mengubah role sendiri
+      allow update: if isOwner(userId) && request.resource.data.role == resource.data.role;
+
+      // Tidak ada yang boleh hapus akun
+      allow delete: if false;
+    }
+
+    // ── Koleksi: quiz_results ────────────────────────────────────
+    match /quiz_results/{quizId} {
+      allow read: if isTeacher() ||
+        (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow create: if isAuthenticated() &&
+        request.resource.data.userId == request.auth.uid;
+      allow update, delete: if false;
+    }
+
+    // ── Koleksi: activity_events ─────────────────────────────────
+    match /activity_events/{eventId} {
+      allow read: if isTeacher() ||
+        (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow create: if isAuthenticated() &&
+        request.resource.data.userId == request.auth.uid;
+      allow update, delete: if false;
+    }
+
+    // ── Koleksi: material_overrides ──────────────────────────────
+    // Siapa saja boleh baca (mahasiswa butuh ini untuk melihat materi terbaru)
+    // Hanya guru yang boleh menulis (create/update/delete)
+    match /material_overrides/{materialId} {
+      allow read: if true;
+      allow write: if isTeacher();
+    }
+
+    // ── Koleksi: quiz_overrides ──────────────────────────────────
+    // Siapa saja boleh baca, hanya guru yang boleh menulis
+    match /quiz_overrides/{materialId} {
+      allow read: if true;
+      allow write: if isTeacher();
+    }
+  }
+}

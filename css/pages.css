@@ -1,0 +1,596 @@
+/* ==========================================================================
+   PAGE-SPECIFIC STYLES
+   Login, Registrasi, Home, Video, Buku, Quiz, Score, dan Profil
+   ========================================================================== */
+
+/* --- 1. HALAMAN AUTH (LOGIN & REGISTRASI) --- */
+.auth-page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.5rem;
+  background: linear-gradient(rgba(246, 250, 250, 0.18), rgba(246, 250, 250, 0.24));
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 980px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+  display: flex;
+  min-height: 560px;
+}
+
+/* Layout Dua Bagian Login:
+   Prompt meminta:
+   "Gunakan layout dua bagian utama."
+   "Di bagian tengah halaman, agak ke kanan, terdapat area untuk logo website."
+   "Di samping area logo terdapat form login."
+*/
+.auth-form-side {
+  flex: 1.1;
+  padding: 3.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.auth-brand-side {
+  flex: 0.9;
+  background: var(--primary);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3.5rem 2.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-brand-side::before {
+  content: '';
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  top: -60px;
+  right: -60px;
+}
+
+.auth-brand-side::after {
+  content: '';
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  bottom: -40px;
+  left: -40px;
+}
+
+.brand-showcase-logo {
+  width: 90px;
+  height: 90px;
+  border-radius: 24px;
+  background: var(--logo-showcase-background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+  margin-bottom: 1.5rem;
+  z-index: 1;
+}
+
+.brand-showcase-logo .brand-logo-image {
+  width: 56px;
+  height: 56px;
+  background-color: var(--logo-showcase-color);
+}
+
+.brand-showcase-title {
+  color: #ffffff;
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  z-index: 1;
+}
+
+.brand-showcase-tagline {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--font-size-sm);
+  max-width: 280px;
+  line-height: 1.6;
+  z-index: 1;
+}
+
+.auth-header {
+  margin-bottom: 2rem;
+}
+
+.auth-header h2 {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  margin-bottom: 0.35rem;
+}
+
+.auth-header p {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.auth-footer-links {
+  margin-top: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: center;
+  font-size: var(--font-size-sm);
+}
+
+.auth-footer-links a {
+  font-weight: 600;
+}
+
+/* Modifikasi untuk Registrasi jika form lebih panjang */
+.auth-container.register-layout .auth-form-side {
+  padding: 2.75rem 3rem;
+}
+
+/* --- 2. HOME / HALAMAN UTAMA --- */
+.home-hero {
+  padding: 3rem 0 2rem 0;
+  text-align: center;
+}
+
+.greeting-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  margin-bottom: 1.25rem;
+}
+
+.home-title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.home-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+  max-width: 680px;
+  margin: 0 auto 2.5rem auto;
+  line-height: 1.6;
+}
+
+/* --- 3. DETAIL MATERI / METHOD SELECTOR --- */
+.method-page-header {
+  padding: 2.5rem 0 1.5rem 0;
+  text-align: center;
+}
+
+.material-chip-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-surface-alt);
+  border: 1px solid var(--border-light);
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+/* --- 4. VIDEO PAGE --- */
+.video-page-wrap {
+  padding: 2.5rem 0 5rem 0;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.video-next-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+/* --- 5. BUKU / READING PAGE --- */
+.book-page-wrap {
+  padding: 2.5rem 0 5rem 0;
+}
+
+/* --- 6. QUIZ PAGE --- */
+.quiz-page-wrap {
+  padding: 2.5rem 0 6rem 0;
+}
+
+/* --- 7. SCORE PAGE --- */
+.score-page-wrap {
+  padding: 3.5rem 0 6rem 0;
+}
+
+/* --- 8. PROFIL PENGGUNA --- */
+.profile-page-wrap {
+  padding: 2.5rem 0 5rem 0;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.profile-card-main {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 2rem;
+}
+
+.profile-avatar-large {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary) 0%, #276e5d 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0 auto 1.25rem auto;
+  box-shadow: 0 10px 25px var(--primary-glow);
+  border: 4px solid #ffffff;
+  background-size: cover;
+  background-position: center;
+}
+
+.profile-avatar-large.has-profile-photo {
+  color: transparent;
+  font-size: 0;
+}
+
+.profile-photo-button {
+  margin: 0 auto 1.25rem;
+}
+
+.profile-user-name {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+}
+
+.profile-user-email {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.profile-quick-stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.profile-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-stat-number {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.profile-stat-title {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Riwayat Quiz Card & Table */
+.quiz-history-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 2.5rem;
+}
+
+.history-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.history-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: var(--font-size-sm);
+}
+
+.history-table th {
+  background: var(--bg-surface-alt);
+  padding: 0.9rem 1.15rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-light);
+  white-space: nowrap;
+}
+
+.history-table td {
+  padding: 1rem 1.15rem;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.history-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.history-table tbody tr:hover {
+  background-color: #fafbfc;
+}
+
+.empty-history-state {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  color: var(--text-muted);
+}
+
+.empty-history-state svg {
+  margin: 0 auto 1rem auto;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.profile-logout-wrap {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+/* --- RESPONSIVITAS AUTH & PAGES --- */
+@media (max-width: 820px) {
+  .auth-container {
+    flex-direction: column-reverse;
+  }
+
+  .auth-brand-side {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .brand-showcase-logo {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1rem;
+  }
+
+  .auth-form-side {
+    padding: 2.5rem 1.75rem;
+  }
+
+  .home-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .auth-page-wrapper {
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: 1rem 0.75rem;
+  }
+
+  .auth-container {
+    min-height: 0;
+    border-radius: var(--radius-lg);
+  }
+
+  .auth-form-side,
+  .auth-container.register-layout .auth-form-side {
+    padding: 1.5rem 1.15rem;
+  }
+
+  .auth-brand-side {
+    padding: 1.5rem 1rem;
+  }
+
+  .home-hero {
+    padding: 2rem 0 1rem;
+  }
+
+  .home-title {
+    font-size: clamp(1.7rem, 7vw, 2rem);
+  }
+
+  .home-subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.45rem, 6vw, 1.8rem);
+  }
+
+  .method-page-header,
+  .video-page-wrap,
+  .book-page-wrap,
+  .quiz-page-wrap,
+  .score-page-wrap,
+  .profile-page-wrap {
+    padding-top: 1.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .video-info-box,
+  .profile-card-main,
+  .quiz-history-card,
+  .score-card,
+  .question-card {
+    padding: 1.15rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .quiz-music-bar {
+    padding: 0.55rem;
+    margin-bottom: 1rem;
+  }
+
+  .quiz-music-right {
+    gap: 0.4rem;
+  }
+
+  .btn-music-toggle {
+    padding: 0.5rem 0.65rem;
+  }
+
+  .volume-slider-box {
+    gap: 4px;
+    padding: 4px 6px;
+  }
+
+  .music-volume-range {
+    width: 56px;
+  }
+
+  .quiz-actions-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .quiz-actions-bar .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .profile-quick-stats {
+    gap: 1rem;
+  }
+
+  .profile-user-email {
+    overflow-wrap: anywhere;
+  }
+
+  .history-table th,
+  .history-table td {
+    padding: 0.7rem 0.8rem;
+  }
+}
+
+/* --- Learning dashboard --- */
+.learning-dashboard { display:grid; grid-template-columns:1fr; gap:1rem; margin:1.5rem 0 2.5rem; }
+.continue-learning-card { background:var(--bg-surface); border:1px solid var(--border-light); border-radius:var(--radius-lg); padding:1.5rem; box-shadow:0 8px 24px rgba(15,23,42,.05); }
+.continue-learning-card .eyebrow { color:var(--primary); font-size:.75rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+.continue-learning-card p { font-size:.875rem; }
+.progress-track { height:9px; overflow:hidden; border-radius:999px; background:var(--bg-surface-alt); }
+.progress-track span { display:block; height:100%; width:0; border-radius:inherit; background:#276e5d; transition:width .35s ease; }
+.continue-learning-card { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+.continue-learning-card h3 { margin:.4rem 0; font-size:1.1rem; }
+.home-materials-heading { margin-bottom:1rem; }
+.material-progress-summary { margin-top:1.25rem; }
+.material-progress-label { display:flex; justify-content:space-between; margin-bottom:.45rem; font-size:.85rem; }
+.material-progress-summary small { display:block; margin-top:.5rem; color:var(--text-secondary); }
+@media(max-width:700px) { .continue-learning-card { align-items:flex-start; flex-direction:column; } }
+.video-complete-btn { margin:1rem 0 2rem; }
+
+/* --- QUIZ TIMER --- */
+.quiz-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.quiz-timer-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  border: 2px solid var(--border-medium);
+  color: var(--text-secondary);
+  font-weight: 700;
+  flex-shrink: 0;
+  white-space: nowrap;
+  box-shadow: var(--shadow-subtle);
+  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+}
+
+.quiz-timer-label {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.quiz-timer-digits {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+  min-width: 3.5ch;
+  text-align: right;
+}
+
+/* Urgent state: < 2 minutes remaining */
+.quiz-timer-wrap.timer-urgent {
+  border-color: var(--danger);
+  background: var(--danger-light);
+  animation: timer-pulse 1s ease-in-out infinite;
+}
+
+.quiz-timer-wrap.timer-urgent .quiz-timer-digits {
+  color: var(--danger);
+}
+
+.quiz-timer-wrap.timer-urgent svg {
+  color: var(--danger);
+}
+
+@keyframes timer-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.0); }
+  50%       { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0.18); }
+}
+
+@media (max-width: 600px) {
+  .quiz-header-row { flex-direction: column; gap: 1rem; }
+  .quiz-timer-wrap { align-self: flex-start; }
+}
+

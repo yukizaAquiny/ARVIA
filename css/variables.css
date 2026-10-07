@@ -1,0 +1,97 @@
+/* ==========================================================================
+   DESIGN TOKENS & VARIABLES - ARVIA NAVY & MAGENTA THEME
+   Inspirasi visual: rounded typography, soft translucent surfaces,
+   gentle shadows, and a clear e-learning interface.
+   ========================================================================== */
+
+:root {
+  /* --- IDENTITAS LOGO (ubah nilai ini untuk mengganti warna logo/latar) --- */
+  --logo-color: #ffffff;
+  --logo-background: #7cb3dd;
+  --logo-border-color: rgba(11, 59, 99, 0.35);
+  --logo-glow: rgba(22, 143, 200, 0.28);
+  --logo-showcase-color: #ffffff;
+  --logo-showcase-background: #8ba4b8;
+
+  /* --- PALET KREM, HITAM, DAN AKSEN PASTEL --- */
+  --primary: #206180;
+  --primary-hover: #0873aa;
+  --primary-light: rgba(55, 184, 237, 0.16);
+  --primary-glow: rgba(55, 184, 237, 0.24);
+
+  --secondary: #38b8eb;
+  --secondary-hover: #159bd3;
+  --secondary-light: rgba(56, 184, 235, 0.16);
+
+  --accent: #276e5d;
+  --accent-light: rgba(39, 110, 93, 0.16);
+  --accent-glow: rgba(39, 110, 93, 0.28);
+
+  /* --- STATUS & FEEDBACK --- */
+  --success: #78a900;
+  --success-light: rgba(181, 226, 0, 0.18);
+  --success-border: rgba(136, 178, 0, 0.34);
+
+  --warning: #a97819;
+  --warning-light: rgba(232, 194, 91, 0.2);
+  --warning-border: rgba(169, 120, 25, 0.32);
+
+  --danger: #0873aa;
+  --danger-light: rgba(184, 70, 74, 0.12);
+  --danger-border: rgba(184, 70, 74, 0.3);
+
+  /* --- LATAR KREM DAN PERMUKAAN TERANG --- */
+  --bg-page: #f6f8f7;
+  --bg-page-alt: #e8f7fd;
+  --bg-surface: rgba(255, 255, 255, 0.82);
+  --bg-surface-solid: #ffffff;
+  --bg-surface-alt: rgba(231, 247, 253, 0.9);
+  --bg-glass: rgba(255, 255, 255, 0.76);
+  --bg-pill: rgba(22, 143, 200, 0.08);
+  --bg-pill-active: #168fc8;
+
+  /* --- WARNA TEKS --- */
+  --text-primary: #417b62;
+  --text-secondary: #536e7b;
+  --text-muted: #728994;
+  --text-inverse: #ffffff;
+
+  /* --- BORDER & DIVIDER --- */
+  --border-light: rgba(151, 197, 215, 0.16);
+  --border-medium: rgba(27, 142, 188, 0.26);
+  --border-focus: rgba(59, 141, 101, 0.64);
+
+  /* --- TIPOGRAFI --- */
+  --font-family: 'Nunito', 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Baloo 2', 'Nunito', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-size-xs: 0.75rem;       /* 12px */
+  --font-size-sm: 0.875rem;      /* 14px */
+  --font-size-base: 1rem;        /* 16px */
+  --font-size-lg: 1.125rem;      /* 18px */
+  --font-size-xl: 1.25rem;       /* 20px */
+  --font-size-2xl: 1.5rem;       /* 24px */
+  --font-size-3xl: 1.875rem;     /* 30px */
+  --font-size-4xl: 2.25rem;      /* 36px */
+
+  /* --- BORDER RADIUS (SESUAI REFERENSI: ROUNDED & PILL) --- */
+  --radius-sm: 0.5rem;           /* 8px */
+  --radius-md: 0.875rem;         /* 14px */
+  --radius-lg: 1.25rem;          /* 20px - Card rounded */
+  --radius-xl: 1.75rem;          /* 28px */
+  --radius-full: 9999px;         /* Lingkaran / Pill Button */
+
+  /* --- SHADOW / BAYANGAN HALUS --- */
+  --shadow-subtle: 0 2px 8px rgba(22, 112, 153, 0.08);
+  --shadow-card: 0 12px 30px -10px rgba(22, 112, 153, 0.14), 0 0 1px 1px rgba(22, 112, 153, 0.08);
+  --shadow-hover: 0 18px 38px -12px rgba(22, 112, 153, 0.2), 0 0 2px 1px rgba(22, 112, 153, 0.12);
+  --shadow-float: 0 18px 36px -8px rgba(39, 110, 93, 0.24);
+
+  /* --- TRANSISI & ANIMASI --- */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* --- TATA LETAK & CONTAINER --- */
+  --max-width: 1180px;
+  --header-height: 74px;
+}

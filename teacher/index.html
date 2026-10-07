@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portal guru ARVIA untuk memantau pembelajaran siswa.">
+  <title>ARVIA — Portal Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&amp;family=Nunito:wght@400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="teacher.css">
+</head>
+<body class="teacher-page">
+  <header class="teacher-header">
+    <div class="header-left">
+      <a class="student-link" href="../index.html"><span class="student-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 9 12 3l10 6-10 6L2 9Z"/><path d="M6 12v5c3.5 3 8.5 3 12 0v-5M22 9v6"/></svg></span><span><strong>ARVIA</strong><small>Portal Mahasiswa ↗</small></span></a>
+      <span class="header-divider"></span>
+      <a class="teacher-brand" href="./" aria-label="ARVIA portal guru"><span class="teacher-logo"><span class="brand-logo-image" role="img" aria-label="Logo ARVIA"></span></span><span><strong>ARVIA</strong><small>PORTAL GURU</small></span></a>
+    </div>
+    <div id="teacher-user-controls" class="teacher-user-controls" hidden><span class="teacher-user-pill"><span id="teacher-avatar">G</span><strong id="teacher-header-name">Pengajar</strong></span><button id="teacher-logout" class="logout-button" type="button"><span aria-hidden="true">⇥</span> Keluar</button></div>
+  </header>
+
+  <main class="teacher-main">
+    <section id="teacher-login-panel" class="teacher-login card">
+      <form id="teacher-login-form" class="login-form">
+        <span class="login-lock" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span><span class="eyebrow">RUANG PENGAJAR</span><h1>Masuk ke Portal Guru</h1><p class="login-description">Kelola materi pembelajaran, soal kuis, dan pantau perkembangan mahasiswa.</p>
+        <label class="form-group"><span class="form-label">Email guru</span><input class="form-input" id="teacher-email" type="email" autocomplete="username" placeholder="guru@sekolah.id" required></label>
+        <label class="form-group"><span class="form-label">Password</span><input class="form-input" id="teacher-password" type="password" autocomplete="current-password" placeholder="Masukkan password" required></label>
+        <p id="teacher-login-error" class="teacher-error" role="alert"></p>
+        <button class="btn btn-primary btn-block btn-lg" id="teacher-login-submit" type="submit">Masuk ke Portal</button>
+        <div class="login-separator"></div><p class="login-help">Tidak dapat masuk? Silakan minta akun kepada admin.</p>
+      </form>
+    </section>
+
+    <section id="teacher-dashboard" hidden>
+      <nav class="teacher-tabs" aria-label="Menu portal guru"><button class="teacher-tab active" data-panel="overview" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="5" rx="1"/><rect x="13" y="10" width="8" height="11" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/></svg> Dashboard</button><button class="teacher-tab" data-panel="update-data" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/><path d="M3 6h7"/><path d="M3 10h5"/></svg> Perbarui Data</button><button class="teacher-tab" data-panel="edit-quiz" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg> Edit Quiz</button><button class="teacher-tab" data-panel="results" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="18" rx="2"/><path d="M9 4.5h6M8 12l2.5 2.5L16 9"/><path d="M8 18h8"/></svg> Hasil Quiz</button><button class="teacher-tab" data-panel="students" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20v-1a6 6 0 0 1 12 0v1M16 5a3 3 0 0 1 0 6M18 14a5 5 0 0 1 3 5v1"/></svg> Aktivitas Mahasiswa</button></nav>
+      <div id="teacher-load-error" class="teacher-notice" hidden></div>
+      <section class="dashboard-panel active" id="panel-overview">
+        <div class="dashboard-heading"><div><h1>Monitoring Pembelajaran</h1><p id="teacher-welcome">Pantau keterlibatan mahasiswa dan pemahaman materi secara terpadu.</p></div></div>
+        <div class="stat-grid"><article class="stat-card"><span class="stat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20v-1a6 6 0 0 1 12 0v1M17 8h4M19 6v4"/></svg></span><span class="stat-label">Mahasiswa Terdaftar</span><strong id="total-students">—</strong></article><article class="stat-card"><span class="stat-icon activity-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="8.5" y="14" width="7" height="7" rx="2"/><path d="M10 6.5h4M7 10v2a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-2"/></svg></span><span class="stat-label">Aktivitas Tercatat</span><strong id="total-activities">—</strong></article><article class="stat-card"><span class="stat-icon quiz-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="18" rx="2"/><path d="M9 4h6M8 12l2.5 2.5L16 9M8 18h8"/></svg></span><span class="stat-label">Kuis Dikerjakan</span><strong id="total-quizzes">—</strong></article></div>
+        <article class="data-card student-activity-card"><div class="card-heading"><div><h2>Aktivitas Terbaru Mahasiswa</h2></div></div><div id="recent-students" class="student-cards"></div></article>
+      </section>
+      <section class="dashboard-panel" id="panel-update-data">
+        <div class="editor-heading"><div><h1>Perbarui Data Pembelajaran</h1><p>Ubah materi, video, dan e-book untuk portal mahasiswa.</p></div></div>
+        <form id="material-editor-form" class="data-card material-form">
+          <div class="card-heading form-span-all"><div><h2>Informasi Materi Pembelajaran</h2></div></div>
+          <label class="form-group form-span-all"><span class="form-label">Pilih materi yang ingin diedit</span><select id="material-select" class="form-input custom-select"></select></label>
+          <label class="form-group"><span class="form-label">Judul materi</span><input id="edit-title" class="form-input" required></label>
+          <label class="form-group"><span class="form-label">Deskripsi singkat</span><input id="edit-description" class="form-input" required></label>
+          <label class="form-group"><span class="form-label">Judul video pembelajaran</span><input id="edit-video-title" class="form-input"></label>
+          <label class="form-group"><span class="form-label">Tautan embed video</span><input id="edit-video-url" class="form-input" type="url" placeholder="https://www.youtube.com/embed/..."></label>
+          <label class="form-group form-span-all"><span class="form-label">Deskripsi dan ringkasan video</span><textarea id="edit-video-description" class="form-input" rows="3"></textarea></label>
+          <label class="form-group"><span class="form-label">Judul modul / e-book</span><input id="edit-book-title" class="form-input"></label>
+          <label class="form-group"><span class="form-label">Tautan e-book / materi digital</span><input id="edit-book-url" class="form-input" type="url" placeholder="https://..."></label>
+          <div class="editor-actions form-span-all"><span id="editor-save-status" role="status"></span><button id="save-material-button" class="btn btn-primary" type="submit">Simpan Perubahan Materi</button></div>
+        </form>
+      </section>
+
+      <section class="dashboard-panel" id="panel-edit-quiz">
+        <div class="editor-heading"><div><h1>Edit Soal Quiz</h1></div></div>
+        <div class="quiz-editor-toolbar data-card">
+          <label class="form-group quiz-select-group">
+            <span class="form-label">Pilih materi</span>
+            <select id="quiz-material-select" class="form-input custom-select"></select>
+          </label>
+          <div class="quiz-toolbar-actions">
+            <span id="quiz-save-status" role="status"></span>
+            <button id="quiz-add-question" class="btn btn-outline" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              Tambah Soal
+            </button>
+            <button id="quiz-save-all" class="btn btn-primary" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              Simpan Semua
+            </button>
+          </div>
+        </div>
+        <div id="quiz-questions-container" class="quiz-questions-list"></div>
+      </section>
+      <section class="dashboard-panel" id="panel-students">
+        <div class="student-page-heading"><div><h1>Aktivitas Mahasiswa</h1><p>Pilih mahasiswa untuk melihat aktivitas belajar dan hasil kuisnya.</p></div></div>
+        <article class="data-card"><div class="card-heading"><h2>Daftar Mahasiswa</h2><span id="students-count" class="count-pill">0 mahasiswa</span></div><div id="students-directory" class="students-directory"></div></article>
+        <article id="student-activity-detail" class="data-card student-detail-card" hidden><div class="card-heading"><div><span class="eyebrow">RINCIAN AKTIVITAS</span><h2 id="selected-student-name">Aktivitas mahasiswa</h2></div><button id="close-student-detail" class="subtle-button" type="button">Tutup</button></div><div class="table-wrap"><table><thead><tr><th>Aktivitas</th><th>Materi</th><th>Waktu</th></tr></thead><tbody id="selected-student-activity-table"></tbody></table></div></article>
+      </section>
+      <section class="dashboard-panel" id="panel-results">
+        <div class="student-page-heading"><div><h1>Hasil Quiz Mahasiswa</h1><p>Buka rincian untuk melihat jawaban mahasiswa pada setiap soal.</p></div></div>
+        <article class="data-card"><div class="table-wrap"><table><thead><tr><th>Mahasiswa</th><th>Judul Quiz</th><th>Nilai</th><th>Benar / Salah</th><th>Tanggal</th><th>Rincian</th></tr></thead><tbody id="results-table"></tbody></table></div></article>
+      </section>
+    </section>
+  </main>
+  <dialog id="quiz-detail-dialog" class="quiz-detail-dialog"><div class="dialog-heading"><div><span class="eyebrow">RINCIAN EVALUASI</span><h2 id="quiz-detail-title">Detail Jawaban Quiz</h2><p id="quiz-detail-student"></p></div><button id="close-quiz-detail" class="dialog-close" type="button" aria-label="Tutup detail">×</button></div><div id="quiz-answer-details" class="quiz-answer-details"></div></dialog>
+  <footer class="teacher-footer">ARVIA · Belajar, Pahami, dan Uji Pengetahuanmu</footer>
+  <script src="../js/data.js"></script>
+  <script type="module" src="teacher.js"></script>
+</body>
+</html>

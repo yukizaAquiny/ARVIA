@@ -1,0 +1,96 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- BOOK -->
+    <g fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+
+        <!-- Halaman kiri -->
+        <path d="M256 405
+                 C220 375 175 355 112 355
+                 L112 235
+                 C170 235 220 250 256 280"></path>
+
+        <!-- Halaman kanan -->
+        <path d="M256 405
+                 C292 375 337 355 400 355
+                 L400 235
+                 C342 235 292 250 256 280"></path>
+
+        <!-- Lapisan buku kiri -->
+        <path d="M256 405
+                 C220 382 180 370 128 370
+                 L128 252"></path>
+
+        <path d="M256 405
+                 C220 390 175 382 145 382
+                 L145 268"></path>
+
+        <!-- Lapisan buku kanan -->
+        <path d="M256 405
+                 C292 382 332 370 384 370
+                 L384 252"></path>
+
+        <path d="M256 405
+                 C292 390 337 382 367 382
+                 L367 268"></path>
+
+        <!-- Tulang buku -->
+        <path d="M256 280 L256 405"></path>
+    </g>
+
+
+    <!-- FOX -->
+    <g fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+
+        <!-- Telinga kiri -->
+        <path d="M155 175
+                 L145 65
+                 L220 125"></path>
+
+        <!-- Telinga kanan -->
+        <path d="M357 125
+                 L367 65
+                 L292 125"></path>
+
+        <!-- Kepala -->
+        <path d="M145 65
+                 C175 105 190 120 220 125
+                 C245 130 267 130 292 125
+                 C322 120 337 105 367 65"></path>
+
+        <!-- Sisi wajah kiri -->
+        <path d="M145 65
+                 C135 120 142 170 175 200
+                 C195 218 215 225 235 235"></path>
+
+        <!-- Sisi wajah kanan -->
+        <path d="M367 65
+                 C377 120 370 170 337 200
+                 C317 218 297 225 277 235"></path>
+
+        <!-- Mata / detail wajah kiri -->
+        <path d="M175 200
+                 C195 180 215 180 235 195"></path>
+
+        <!-- Mata / detail wajah kanan -->
+        <path d="M337 200
+                 C317 180 297 180 277 195"></path>
+
+        <!-- Moncong kiri -->
+        <path d="M175 200
+                 C200 220 220 245 256 255"></path>
+
+        <!-- Moncong kanan -->
+        <path d="M337 200
+                 C312 220 292 245 256 255"></path>
+
+        <!-- Hidung -->
+        <path d="M244 250
+                 C248 244 264 244 268 250
+                 C268 263 256 270 256 270
+                 C256 270 244 263 244 250Z" fill="currentColor"></path>
+
+        <!-- Garis tengah wajah -->
+        <path d="M256 270 L256 280"></path>
+    </g>
+
+</svg>

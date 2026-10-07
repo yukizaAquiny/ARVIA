@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARVIA - Belajar, Pahami, dan Uji Pengetahuanmu.</title>
+  <meta name="description"
+    content="Platform media pembelajaran interaktif modern berbasis video edukasi, buku digital bacaan, dan kuis pilihan ganda yang responsif dan mudah dipelajari.">
+  <meta name="keywords" content="media pembelajaran, edukasi interaktif, video belajar, kuis online, buku digital">
+
+  <!-- Google Fonts: Plus Jakarta Sans (Tipografi Bersih, Ramah Mahasiswa & Pelajar) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&amp;family=Nunito:wght@400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
+    rel="stylesheet">
+
+  <!-- Modular CSS Stylesheets (Terpisah Rapi & Mudah Dimodifikasi) -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+
+  <!-- Firebase Modular SDK Import Map -->
+  <script type="importmap">
+    {
+      "imports": {
+        "firebase/app": "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js",
+        "firebase/analytics": "https://www.gstatic.com/firebasejs/10.14.1/firebase-analytics.js",
+        "firebase/auth": "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js",
+        "firebase/firestore": "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js"
+      }
+    }
+  </script>
+
+  <audio id="quizMusic" loop preload="auto"></audio>
+</head>
+
+<body>
+
+  <!-- Toast Notification Container (Umpan Balik Instan) -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Master App Wrapper -->
+  <div id="app">
+
+    <!-- ====================================================================
+         HEADER & NAVBAR (Konsisten pada halaman Home dan Pembelajaran)
+         ==================================================================== -->
+    <header id="site-header" class="site-header hidden">
+      <div class="container header-inner">
+        <!-- Logo & Nama Website -->
+  <a href="#home" id="header-brand-link" class="brand-link">
+
+  <div class="brand-icon-wrapper">
+
+    <span class="arvia-logo" role="img" aria-label="Logo ARVIA"></span>
+
+  </div>
+
+  <span class="brand-name">ARVIA</span>
+
+</a>
+        <!-- Tombol Menu Mobile Hamburger -->
+        <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Buka Menu Navigasi">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <!-- Navigasi utama -->
+        <nav id="main-nav" class="main-nav">
+          <ul class="nav-links">
+            <li class="nav-item">
+              <a href="#home" id="nav-link-home" class="nav-link active">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span>Beranda</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#profile" id="nav-link-profile" class="nav-link">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Profil</span>
+              </a>
+            </li>
+          </ul>
+
+          <!-- Info Ringkas Pengguna -->
+          <div id="user-header-profile" class="user-header-profile" title="Buka Profil Pengguna">
+            <div id="header-user-avatar-initial" class="header-avatar">U</div>
+            <span id="header-user-name-text" class="header-user-name">Pengguna</span>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ====================================================================
+         MAIN CONTENT AREA (Wadah Perpindahan View Dinamis)
+         ==================================================================== -->
+    <main class="main-content">
+
+      <!-- ================================================================
+           VIEW 1: HALAMAN LOGIN
+           Sesuai instruksi: Layout dua bagian utama. Di bagian tengah halaman,
+           agak ke kanan terdapat area logo website. Di samping area logo
+           terdapat form login.
+           ================================================================ -->
+      <section id="view-login" class="view-section active">
+        <div class="auth-page-wrapper">
+          <div class="auth-container">
+            <div class="auth-form-side">
+              <div class="auth-header">
+                <h2>Selamat Datang Kembali</h2>
+                <p>Masuk untuk melanjutkan pembelajaran Anda.</p>
+              </div>
+              <form id="form-login" novalidate>
+                <div class="form-group"><label for="login-email" class="form-label">Email</label><div class="form-input-wrapper"><input type="email" id="login-email" class="form-input" placeholder="contoh: saya@gmail.com" autocomplete="email" required></div><span id="login-email-error" class="form-error-msg"></span></div>
+                <div class="form-group"><label for="login-password" class="form-label">Password</label><div class="form-input-wrapper"><input type="password" id="login-password" class="form-input" placeholder="Masukkan password" autocomplete="current-password" required></div><span id="login-password-error" class="form-error-msg"></span></div>
+                <button type="submit" id="btn-login-submit" class="btn btn-primary btn-block btn-lg" style="margin-top:1rem">Login ke Akun</button>
+                <div class="auth-footer-links"><div><a href="#" id="link-forgot-password">Lupa password?</a></div><div><span>Belum memiliki akun?</span> <a href="#register" id="link-to-register">Buat akun</a></div></div>
+              </form>
+            </div>
+            <div class="auth-brand-side"><div class="brand-showcase-logo"><span class="brand-logo-image" role="img" aria-label="Logo ARVIA"></span></div><h1 class="brand-showcase-title">ARVIA</h1><p class="brand-showcase-tagline">Belajar, Pahami, dan Uji Pengetahuanmu</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-register" class="view-section">
+        <div class="auth-page-wrapper"><div class="auth-container register-layout">
+          <div class="auth-form-side"><div class="auth-header"><h2>Buat Akun Baru</h2><p>Daftar untuk menyimpan progres dan hasil kuis.</p></div>
+            <form id="form-register" novalidate>
+              <div class="form-group"><label for="register-name" class="form-label">Nama Lengkap</label><div class="form-input-wrapper"><input id="register-name" class="form-input" autocomplete="name" required></div><span id="register-name-error" class="form-error-msg"></span></div>
+              <div class="form-group"><label for="register-email" class="form-label">Email</label><div class="form-input-wrapper"><input type="email" id="register-email" class="form-input" autocomplete="email" required></div><span id="register-email-error" class="form-error-msg"></span></div>
+              <div class="form-group"><label for="register-password" class="form-label">Password (minimal 6 karakter)</label><div class="form-input-wrapper"><input type="password" id="register-password" class="form-input" autocomplete="new-password" required minlength="6"></div><span id="register-password-error" class="form-error-msg"></span></div>
+              <div class="form-group"><label for="register-password-confirm" class="form-label">Ulangi Password</label><div class="form-input-wrapper"><input type="password" id="register-password-confirm" class="form-input" autocomplete="new-password" required minlength="6"></div><span id="register-password-confirm-error" class="form-error-msg"></span></div>
+              <button type="submit" id="btn-register-submit" class="btn btn-primary btn-block btn-lg">Buat Akun</button><div class="auth-footer-links"><span>Sudah punya akun?</span> <a href="#login" id="link-to-login">Login</a></div>
+            </form>
+          </div><div class="auth-brand-side"><div class="brand-showcase-logo"><span class="brand-logo-image" role="img" aria-label="Logo ARVIA"></span></div><h1 class="brand-showcase-title">ARVIA</h1><p class="brand-showcase-tagline">Mulai perjalanan belajarmu hari ini</p></div>
+        </div></div>
+      </section>
+
+      <!-- ================================================================
+           VIEW 3: HALAMAN UTAMA / HOME
+           Sapaan, deskripsi platform, 3 kartu materi pembelajaran
+           ================================================================ -->
+      <section id="view-home" class="view-section">
+        <div class="container">
+          <div class="home-hero">
+            <div class="greeting-pill">
+              <span id="home-user-greeting">Halo, Pengguna!</span>
+            </div>
+            <h1 class="home-title">Lanjutkan perjalanan belajarmu</h1>
+            <p class="home-subtitle">
+              Pelajari jaringan komputer melalui materi, video, bacaan, dan evaluasi yang terarah.
+            </p>
+          </div>
+
+          <section class="learning-dashboard" aria-label="Lanjutkan pembelajaran">
+            <div id="continue-learning-card" class="continue-learning-card"></div>
+          </section>
+          <div class="section-header home-materials-heading"><h2>Materi Pembelajaran</h2></div>
+          <div id="materials-cards-container" class="materials-grid">
+            <!-- Kartu di-generate secara dinamis oleh student/student.js dari js/data.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           VIEW 4: HALAMAN PEMILIHAN METODE PEMBELAJARAN
+           3 Kartu: Video Pembelajaran, Buku / Materi Bacaan, Quiz
+           ================================================================ -->
+      <section id="view-method" class="view-section">
+        <div class="container" style="padding-top: 2.75rem; padding-bottom: 5rem;">
+          <div class="section-header">
+            <span id="method-material-chip" class="material-chip-tag">Materi 1 • Jaringan Komputer</span>
+            <h1 id="method-material-title" class="section-title">Judul Materi Pembelajaran</h1>
+          </div>
+
+          <!-- 3 Pilihan Metode Belajar -->
+          <div class="methods-grid">
+            <!-- A. Video Pembelajaran -->
+            <div id="card-method-video" class="method-card method-video">
+              <div class="method-icon-container">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+              </div>
+              <h3>Video Pembelajaran</h3>
+              <p>Pelajari materi secara visual dan audio melalui penjelasan video komprehensif.</p>
+              <span class="method-badge badge badge-primary">Tonton Video</span>
+            </div>
+
+            <!-- B. E-Book / Materi Bacaan Digital -->
+            <div id="card-method-book" class="method-card method-book">
+              <div class="method-icon-container">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+              </div>
+              <span class="method-card-pill">E-Book Digital</span>
+              <h3 id="method-book-card-title">E-Book & Modul Bacaan</h3>
+              <p>Buka e-book untuk membaca materi lengkap secara langsung.</p>
+              <button type="button" class="method-badge badge badge-primary">Baca E-Book</button>
+            </div>
+
+            <!-- C. Quiz Interaktif -->
+            <div id="card-method-quiz" class="method-card method-quiz">
+              <div class="method-icon-container">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+              </div>
+              <h3>Quiz Pemahaman</h3>
+              <p>Uji pemahaman Anda dengan soal-soal pilihan ganda dan periksa skor secara langsung.</p>
+              <span class="method-badge badge badge-primary">Mulai Quiz</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           VIEW 5: HALAMAN VIDEO PEMBELAJARAN
+           YouTube embed responsif, penjelasan, poin penting, tombol lanjut ke quiz
+           ================================================================ -->
+      <section id="view-video" class="view-section">
+        <div class="container video-page-wrap">
+          <div class="section-header" style="text-align: left; margin-bottom: 1.5rem;">
+            <span class="section-tag">Video Pembelajaran</span>
+            <h1 id="video-material-title" class="section-title">Judul Video Materi</h1>
+          </div>
+
+          <!-- Pemutar Video YouTube Embed Responsif (Iframe) -->
+          <div class="video-player-container">
+            <iframe id="video-iframe-player" src="" title="Video Pembelajaran EduKreatif"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+          </div>
+
+          <!-- Kotak Informasi & Poin Penting -->
+          <div class="video-info-box">
+            <h3>Deskripsi Materi</h3>
+            <p id="video-desc-text" style="margin-top: 0.5rem;"></p>
+
+            <div class="video-key-points">
+              <h4>Poin Penting yang Dipelajari:</h4>
+              <ul id="video-keypoints-list"></ul>
+            </div>
+
+            <!-- Tombol Lanjut ke Quiz -->
+            <div class="video-next-action">
+              <button id="btn-video-to-quiz" class="btn btn-primary btn-lg">
+                Lanjut ke Quiz Materi Ini
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           VIEW 6: HALAMAN E-BOOK
+           E-book ditampilkan langsung dari tautan materi
+           ================================================================ -->
+      <section id="view-book" class="view-section">
+        <div class="container book-page-wrap">
+          <div class="book-page-header">
+            <div>
+              <span class="section-tag" id="book-section-badge">E-Book Digital Pembelajaran</span>
+              <h1 id="book-material-title" class="section-title">Judul Buku Panduan</h1>
+            </div>
+            <!-- Toolbar Aksi Cepat E-Book -->
+            <div class="book-quick-toolbar">
+              <a id="book-external-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" title="Buka e-book referensi lengkap di tab baru">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                <span>Buka E-Book Sumber</span>
+              </a>
+              <button type="button" id="btn-book-to-quiz-top" class="btn btn-primary btn-sm">
+                <span>Lanjut ke Quiz</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="book-viewer">
+            <div class="book-content-area" id="book-content-area"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           VIEW 7: HALAMAN QUIZ
+           Format pilihan ganda A, B, C, D, validasi, ulasan jawaban, dan aksi
+           ================================================================ -->
+      <section id="view-quiz" class="view-section">
+        <div class="container quiz-page-wrap">
+          <div class="quiz-container">
+            <!-- Kontrol musik kuis -->
+            <div class="quiz-music-bar" id="quiz-music-bar">
+              <div class="quiz-music-right">
+                <button type="button" id="btn-toggle-quiz-music" class="btn-music-toggle" title="Nyalakan / Matikan Backsound">
+                  <svg id="icon-music-playing" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                  </svg>
+                  <svg id="icon-music-muted" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:none;">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <line x1="23" y1="9" x2="17" y2="15"></line>
+                    <line x1="17" y1="9" x2="23" y2="15"></line>
+                  </svg>
+                  <span id="btn-music-toggle-text">Musik Aktif</span>
+                </button>
+                <div class="volume-slider-box">
+                  <span class="volume-slider-icon" aria-hidden="true">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                      <path d="M15.5 8.5a5 5 0 0 1 0 7"></path>
+                      <path d="M19 5a10 10 0 0 1 0 14"></path>
+                    </svg>
+                  </span>
+                  <input type="range" id="quiz-volume-slider" min="0" max="100" value="30" class="music-volume-range" title="Atur Volume Backsound">
+                  <span id="quiz-volume-val" class="volume-val-display">30%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Header Kuis & Timer -->
+            <div class="quiz-header-row">
+              <div class="section-header" style="text-align: left; margin-bottom: 0;">
+                <h1 id="quiz-material-title" class="section-title" style="margin-top: 0.5rem;">Quiz Evaluasi Materi</h1>
+                <p class="section-desc" style="margin: 0;">Pilihlah salah satu jawaban yang paling tepat (A, B, C, atau D)
+                  untuk setiap pertanyaan di bawah ini.</p>
+              </div>
+              <!-- Jam Hitung Mundur 10 Menit -->
+              <div id="quiz-timer-wrap" class="quiz-timer-wrap">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span class="quiz-timer-label">Sisa Waktu</span>
+                <span id="quiz-timer-display" class="quiz-timer-digits">10:00</span>
+              </div>
+            </div>
+
+            <!-- Bilah Progres Pengerjaan -->
+            <div class="quiz-progress-bar-wrap" role="progressbar" aria-label="Jumlah soal yang sudah dijawab" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" title="Progres Pengerjaan Soal">
+              <div id="quiz-progress-fill" class="quiz-progress-fill"></div>
+            </div>
+            <p id="quiz-progress-label" class="quiz-progress-label" aria-live="polite">0 dari 10 soal dijawab</p>
+
+            <!-- Wadah Seluruh Kartu Pertanyaan (Scrollable) -->
+            <div id="quiz-questions-list">
+              <!-- Diisi secara dinamis oleh js/quiz.js -->
+            </div>
+
+            <!-- Bilah Tombol Aksi Kuis di Bagian Bawah: Selesai | Lihat Score -->
+            <div class="quiz-actions-bar">
+              <button type="button" id="btn-submit-quiz" class="btn btn-primary btn-lg">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Periksa Jawaban
+              </button>
+              <button type="button" id="btn-view-score" class="btn btn-secondary btn-lg" disabled>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                Lihat Hasil
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           VIEW 8: HALAMAN SCORE / HASIL QUIZ
+           Skor besar, statistik benar/salah/%, keterangan kategori nilai,
+           ikon rumah di tengah bawah, tombol kembali di kanan bawah
+           ================================================================ -->
+      <section id="view-score" class="view-section">
+        <div class="container score-page-wrap">
+          <div class="score-card">
+            <span class="badge badge-primary" style="margin-bottom: 1.25rem;">Hasil Evaluasi</span>
+            <h1 id="score-material-title" class="section-title">Hasil Quiz</h1>
+
+            <!-- Skor Ukuran Besar -->
+            <div class="score-badge-circle">
+              <span id="score-number-display" class="score-number">100</span>
+              <span class="score-total-denom">DARI 100</span>
+            </div>
+
+            <!-- Rincian Statistik -->
+            <div class="score-stats-grid">
+              <div class="score-stat-box">
+                <div class="stat-label">Jawaban Benar</div>
+                <div id="score-correct-display" class="stat-val val-correct">10</div>
+              </div>
+              <div class="score-stat-box">
+                <div class="stat-label">Jawaban Salah</div>
+                <div id="score-wrong-display" class="stat-val val-wrong">0</div>
+              </div>
+              <div class="score-stat-box">
+                <div class="stat-label">Persentase</div>
+                <div id="score-pct-display" class="stat-val val-pct">100%</div>
+              </div>
+            </div>
+
+            <!-- Tombol Berbentuk Ikon Rumah (Home) di Bagian Tengah Bawah -->
+            <div class="score-home-center-wrap">
+              <button id="btn-score-home" class="btn-home-center" title="Kembali ke Beranda">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Kembali ke Beranda
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Profil dan riwayat belajar -->
+      <section id="view-profile" class="view-section">
+        <div class="container profile-page-wrap">
+          <!-- Kartu Profil Utama -->
+          <div class="profile-card-main">
+            <div id="profile-avatar-initial" class="profile-avatar-large">U</div>
+            <label for="profile-photo-input" class="btn btn-secondary btn-sm profile-photo-button">Pilih Foto Profil</label>
+            <input type="file" id="profile-photo-input" accept="image/*" hidden>
+            <h2 id="profile-user-name" class="profile-user-name">Nama Pengguna</h2>
+            <p id="profile-user-email" class="profile-user-email">email@domain.com</p>
+
+            <div class="profile-quick-stats">
+              <div class="profile-stat-item">
+                <span id="profile-stat-total-quizzes" class="profile-stat-number">0</span>
+                <span class="profile-stat-title">Quiz Diikuti</span>
+              </div>
+              <div class="profile-stat-item">
+                <span id="profile-stat-avg-score" class="profile-stat-number">0</span>
+                <span class="profile-stat-title">Rata-Rata Nilai</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kartu Riwayat Penggunaan Quiz -->
+          <div class="quiz-history-card">
+            <div class="history-card-header">
+              <h3>Riwayat Kuis Saya</h3>
+            </div>
+
+            <!-- Tabel Riwayat -->
+            <div id="history-table-wrapper" class="history-table-wrapper">
+              <table class="history-table">
+                <thead>
+                  <tr>
+                    <th>Materi</th>
+                    <th>Tanggal</th>
+                    <th>Score</th>
+                    <th>Benar</th>
+                    <th>Salah</th>
+                  </tr>
+                </thead>
+                <tbody id="history-table-body">
+                  <!-- Diisi secara dinamis oleh student/student.js -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Tampilan Kosong Jika Belum Ada Riwayat -->
+            <div id="empty-history-state" class="empty-history-state" style="display: none;">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+              <h4>Belum ada riwayat Quiz.</h4>
+              <p style="font-size: var(--font-size-sm); margin-top: 4px;">Selesaikan salah satu kuis materi untuk
+                melihat catatan evaluasi belajar Anda di sini.</p>
+            </div>
+          </div>
+
+          <div class="profile-logout-wrap"><button id="btn-logout" class="btn btn-danger btn-lg" type="button">Keluar Akun</button></div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer-inner">
+        <span>&copy; 2026 ARVIA.</span>
+      </div>
+    </footer>
+
+    <!-- ====================================================================
+         TOMBOL KEMBALI DI BAGIAN KANAN BAWAH (NAVIGASI ALUR KONSISTEN)
+         Muncul mulai dari Pemilihan Metode Pembelajaran dan seterusnya
+         ==================================================================== -->
+    <div id="global-back-button-container" class="back-nav-container" style="display: none;">
+      <button id="global-btn-back" class="btn-back-bottom" title="Kembali ke halaman sebelumnya">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>Kembali</span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- JavaScript Modules (Struktur Rapi & Terorganisir) -->
+  <script type="module">
+    import("./js/firebase-config.js").catch((error) => {
+      console.error("Gagal memuat modul Firebase:", error);
+      window.FirebaseAuthLoadError = window.location.protocol === "file:"
+        ? "Firebase tidak dapat dimuat dari file lokal. Buka aplikasi melalui alamat HTTP/HTTPS."
+        : "Modul Firebase gagal dimuat. Periksa koneksi internet dan akses ke gstatic.com, lalu muat ulang halaman.";
+      window.dispatchEvent(new Event("arvia:firebase-load-error"));
+    });
+  </script>
+  <script src="js/data.js"></script>
+  <script src="js/dialogs.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="student/student.js"></script>
+</body>
+
+</html>
